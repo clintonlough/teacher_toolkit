@@ -11,7 +11,10 @@ Uses an OpenAI API to generate AI generated lesson plans. Engages with the teach
 
 The teacher toolkit then generates a lesson taking all of these factors into account. The teacher can request changes from the AI or can publish the lesson to file which writes it into a file for historical record and easy access.
 
+Use the word "quit" during a prompt to exit the program.
+
 ### Configuration Options
 - UpdateID <str prompt> - permnanently updates the user ID which is a component of the system prompt. This is used to provide further context for the AI when generating plans. E.g. UPDATEID "You are an expert Year 12 Enterprise Computing teacher". Deletions require manual modification of the UserID file.
 
-
+###FLAGS
+- --verbose = display token usage and estimated billings per response.

@@ -1,17 +1,10 @@
-from openai import OpenAI
+
 import os
 import sys
 
-#accesses the stored API key from .env
-from dotenv import load_dotenv
-load_dotenv()
-
-
-# Create a client with your key from the environment
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 gpt_model="gpt-4o-mini"
 
-def print_cost(verbose, input_tokens,output_tokens, total_tokens):
+def print_cost(verbose, input_tokens,output_tokens, total_tokens, *, out=sys.stdout):
     if verbose == True:
         # USD per 1 million tokens
         input_cost = 0.15 / 1_000_000
@@ -34,7 +27,7 @@ def check_exit(user_prompt):
     if user_prompt == "quit":
         return True
 
-def manage_conversation(verbose, messages):
+def manage_conversation(verbose, messages, client):
 
     user_prompt = input("Prompt: ")
 
@@ -60,14 +53,25 @@ def get_system_prompt():
 
     return messages
 
+def _get_client():
+    from dotenv import load_dotenv  # local import, allows for unit tests without library dependencies
+    load_dotenv()
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is not set in environment or .env")
+    from openai import OpenAI  # local import
+    return OpenAI(api_key=api_key)
+
 def main():
 
     verbose = check_verbose()
+    client = _get_client()
     messages = get_system_prompt()
     #main conversation loop
     while True:
-        manage_conversation(verbose, messages)
-        
+        manage_conversation(verbose, messages, client)
+        if manage_conversation(verbose, messages, client) is False:
+            break
 
 
 if __name__ == "__main__":
