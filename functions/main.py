@@ -1,6 +1,8 @@
+#Before running main, activate venv using -> source .venv/bin/activate
 
 import os
 import sys
+from system_prompt import get_base_prompt
 
 gpt_model="gpt-4o-mini"
 
@@ -45,7 +47,7 @@ def manage_conversation(verbose, messages, client):
     print_cost(verbose, resp.usage.input_tokens,resp.usage.output_tokens, resp.usage.total_tokens)
 
 def get_system_prompt():
-    system_prompt = "You are a trivia master. Always respond with a trivia fact and limit your response to 20 words or less."
+    system_prompt = get_base_prompt()
 
     messages = [
     {"role": "developer", "content": system_prompt}
