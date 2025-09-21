@@ -16,5 +16,5 @@ Use the word "quit" during a prompt to exit the program.
 ### Configuration Options
 - UpdateID <str prompt> - permnanently updates the user ID which is a component of the system prompt. This is used to provide further context for the AI when generating plans. E.g. UPDATEID "You are an expert Year 12 Enterprise Computing teacher". Deletions require manual modification of the UserID file.
 
-###FLAGS
+### FLAGS
 - --verbose = display token usage and estimated billings per response.
