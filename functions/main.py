@@ -3,8 +3,8 @@
 import os
 import sys
 import json
-from system_prompt import get_base_prompt
-from tools import get_tools
+from functions.system_prompt import get_base_prompt
+from functions.tools import get_tools
 
 gpt_model="gpt-4o-mini"
 

@@ -23,9 +23,9 @@ def search_video(youtube, search_query):
         q=search_query,
         type="video",
         maxResults=3,
-        safeSearch="strict",              # none | moderate | strict
-        relevanceLanguage="en",           # optional
-        order="relevance",                 # or "viewCount", "date"
+        safeSearch="strict",              
+        relevanceLanguage="en",           
+        order="relevance",                 
     )
     return request.execute()
 
@@ -38,8 +38,6 @@ def display_results(response):
         url = f"https://www.youtube.com/watch?v={vid}"
         results.append({"title": title, "description": description, "url": url})
 
-    #for r in results:
-        #print(f"{r['title']} — {r['description']} - {r['url']}")
     return results
 
 def find_video(search_query):

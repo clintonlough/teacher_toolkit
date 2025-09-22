@@ -1,4 +1,5 @@
-from find_video import find_video
+from functions.find_video import find_video
+from functions.write_file import write_file
 
 def get_tools():
     TOOLS = [
@@ -14,9 +15,23 @@ def get_tools():
                 },
                 "required": ["search_query"]
             }
+        },
+
+        {
+            "type": "function",
+            "name": "write_file",
+            "description": "writes a lesson summary to a file with appropriate markdown. File contents matches lesson summary structure",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "filename": {"type": "string", "description": "name of the file to write to"},
+                    "content": {"type": "string", "description": "lesson summary content to write in the file"}
+                },
+                "required": ["filename", "content"]
+            }
         }
     ]
 
-    TOOLS_MAP = {"find_video": find_video}
+    TOOLS_MAP = {"find_video": find_video, "write_file": write_file}
 
     return TOOLS, TOOLS_MAP

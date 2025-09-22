@@ -37,6 +37,12 @@ def get_base_prompt():
     2. Keep your answers brief and elaborate if asked to.
     3. If asked for a summary of the lesson, put all of the currently developed components in sequential order 
     4. If asked to find a video, you MUST use the find_video tool by passing it a search query.
+
+    Instructions for writing to files:
+    * If asked to save a lesson plan. You MUST use the write_file tool by passing it a filename and the lesson summary.
+    * if the user doesn't provide a filename, prompt them for one. if they omit the ".txt" append it to the end of the filename before passing it.
+    * Include all URLs as hyperlinks.
+    * No more than 20 words per line in the file.
     """
 
     return system_prompt
