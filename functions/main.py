@@ -8,7 +8,7 @@ from functions.tools import get_tools
 
 gpt_model="gpt-4o-mini"
 
-# 1) Expose your function as a tool (Responses API style)
+# Exposes functions as tools
 TOOLS, TOOLS_MAP = get_tools()
 
 def print_cost(verbose, input_tokens,output_tokens, total_tokens, *, out=sys.stdout):
@@ -51,7 +51,7 @@ def run_with_tools(client, messages):
         followups = []
         for call in tool_calls:
             args = json.loads(call.arguments or "{}")
-            result = TOOLS_MAP[call.name](**args)          # list[dict] or similar
+            result = TOOLS_MAP[call.name](**args)          
             if result is None:
                 result = []                                # never send null
 
@@ -78,7 +78,6 @@ def manage_conversation(verbose, messages, client):
 
     messages.append({"role": "user", "content": user_prompt})
 
-    # IMPORTANT: use the tool-enabled runner
     resp = run_with_tools(client, messages)
 
     print(resp.output_text)
@@ -111,6 +110,7 @@ def main():
     verbose = check_verbose()
     client = _get_client()
     messages = get_system_prompt()
+
     #main conversation loop
     while True:
         keep_going = manage_conversation(verbose, messages, client)
